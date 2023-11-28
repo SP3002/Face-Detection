@@ -1,0 +1,29 @@
+{
+  "Students": {
+    "1022": {
+      "Course": "Politician",
+      "Name": "Narendra Modi",
+      "Starting year": 2014
+    },
+    "1023": {
+      "Course": "Politician",
+      "Name": "Rahul Gandhi",
+      "Starting year": 2019
+    },
+    "1024": {
+      "Course": "MCA",
+      "Name": "SAURABH PATIL",
+      "Starting year": 2022
+    },
+    "1025": {
+      "Course": "Actor",
+      "Name": "Vin Diesel",
+      "Starting year": 2014
+    },
+    "1026": {
+      "Course": "Politician",
+      "Name": "Yogi Adityanath",
+      "Starting year": 2020
+    }
+  }
+}

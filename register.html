@@ -1,0 +1,104 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NIRIKSHAN</title>
+    
+</head>
+<style>
+    .alert{
+        display: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="alert alert-success text-center" role="alert">
+           YOUR DETAILS HAVE BEEN SUBMITTED SUCCESSFULLY !!!
+        </div>
+        <form class="form-box" action="" id="Registration">
+            <h2 class="per">Personal Details</h2>
+            <div class="input-box">
+                <input type="text" id="ERPNo" placeholder="ERP No">
+            </div>
+            <div class="input-box">
+                <input type="text" id="FirstName" placeholder="First Name">
+            </div>
+            <div class="input-box">
+                <input type="text" id="MiddleName" placeholder="Middle Name">
+            </div>
+            <div class="input-box">
+                <input type="text" id="LastName" placeholder="Last Name">
+            </div>
+            <div class="upload-box">
+                <input type="file" id="photo" onchange="getFile(event)" accept="image/*">
+                <button id="upimg">UPLOAD IMAGE</button>
+                <progress value="0" max="100" id="prog"></progress>
+                <div id="message"></div>
+            </div>
+            <div class="formbox">
+                <button id="btn">SUBMIT</button>
+            </div>
+            <div id="msg">
+                <pre></pre>
+            </div>
+        </form>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getDatabase,ref,set,get,child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+        import { getStorage} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgk6QL4TstM0KQ0qzXVRw6wlNudxSnK_Q",
+            authDomain: "nirikshan-4e4c8.firebaseapp.com",
+            databaseURL: "https://nirikshan-4e4c8-default-rtdb.firebaseio.com",
+            projectId: "nirikshan-4e4c8",
+            storageBucket: "nirikshan-4e4c8.appspot.com",
+            messagingSenderId: "642289521449",
+            appId: "1:642289521449:web:87789d593adeca7077dd38",
+            measurementId: "G-F4LGQ5ZDVZ"
+        };
+
+        const app=initializeApp(firebaseConfig);
+
+        const db=getDatabase(app);
+
+        document.getElementById("upimg").addEventListener('click', function(e){
+                e.preventDefault();
+                var fileupload=document.getElementById("photo");
+                var file=fileupload.files[0];
+                var storageRef=getStorage(app);
+                var uploadtask=storageRef.child('images/'+document.getElementById("ERPNo").value).put(file);
+
+                uploadtask.on('state_changed',function(snapshot){
+                    var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                    document.getElementById('prog').value=progress;
+                },
+                function(error){
+                    document.getElementById('message').innerHTML='Upload Failed:'+error;
+                },
+                function(){
+                    uploadtask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                        document.getElementById('message').innerHTML='Upload Successful! URL:'+downloadURL;
+                    });
+                });
+            })
+
+        document.getElementById("btn").addEventListener('click',function(e){
+            e.preventDefault();
+            set(ref(db,'user/' + document.getElementById("ERPNo").value),
+                {
+                    ERPNo: document.getElementById("ERPNo").value,
+                    FirstName: document.getElementById("FirstName").value,
+                    MiddleName: document.getElementById("MiddleName").value,
+                    LastName: document.getElementById("LastName").value
+                })
+           
+            alert("Successfully submitted!!")
+        })
+
+    </script>
+    
+</body>
+</html>

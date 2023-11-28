@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NIRIKSHAN</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box" onsubmit="return validation()">
+            <form action="" name="FormFill">
+                <h2> Personal Details</h2>
+                <p id="result"></p>
+                <div class="input-box">
+                    <input type="text" name="FirstName" placeholder="First Name">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="MiddleName" placeholder="Middle Name">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="LastName" placeholder="Last Name">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="ERPNo" placeholder="ERP No.">
+                </div>
+                <div class="file-upload">
+                    <input type="file" id="photo"  accept="Image/*">
+                </div>
+                
+                <button onclick="save()">Register</button>
+                <progress value="0" max="100" id="uploadProgress"></progress>
+                
+                <div id="message"></div>
+            </form>
+        </div>
+        
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
